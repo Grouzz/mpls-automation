@@ -1,6 +1,6 @@
-# Network configuration automation (IPv4 addressing, IGP, BGP, and policies)
+# MPLS configuration automation (IPv4 addressing, OSPF, MPLS)
 
-This project generates **router startup configurations** from an **intent JSON** file. It automatically assigns **IPv4 addresses**, configures **IGP** (RIP or OSPF), builds an **iBGP full-mesh** inside each AS using **loopbacks**, configures **eBGP** on inter-AS links, and optionally applies **routing policies** using **communities + local-preference + route-maps**.
+This project generates **router startup configurations** from an **intent JSON** file. It automatically assigns **IPv4 addresses**, configures **IGP** (OSPF), builds an **iBGP full-mesh** inside each AS using **loopbacks**, configures **eBGP** on inter-AS links, and optionally applies **routing policies** using **communities + local-preference + route-maps**.
 
 ---
 
