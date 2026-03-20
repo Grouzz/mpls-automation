@@ -1,7 +1,7 @@
 {
   "AS": {
     "101": {
-      "igp": "RIP",
+      "igp": "OSPF",
       "add_range": "",
       "loopback": "",
       "routers": {
@@ -14,48 +14,20 @@
         "R2": {
           "interfaces": {
             "GigabitEthernet1/0": { "ipv4": "", "ngbr": "R1" },
-            "GigabitEthernet2/0": { "ipv4": "", "ngbr": "R3", "relationship": "provider"},
+            "GigabitEthernet2/0": { "ipv4": "", "ngbr": "R3"},
             "Loopback0": { "ipv4": "", "ngbr": "" }
           }
-        }
-      }
-    },
-    "102": {
-      "igp": "OSPF",
-      "add_range": "",
-      "loopback": "",
-      "routers": {
+        },
         "R3": {
           "interfaces": {
-            "GigabitEthernet1/0": { "ipv4": "", "ngbr": "R4" },
-            "GigabitEthernet2/0": { "ipv4": "", "ngbr": "R2", "relationship": "customer"},
-            "GigabitEthernet3/0": { "ipv4": "", "ngbr": "R5", "relationship": "peer"},
+            "GigabitEthernet1/0": { "ipv4": "", "ngbr": "R2" },
+            "GigabitEthernet2/0": { "ipv4": "", "ngbr": "R4"},
             "Loopback0": { "ipv4": "", "ngbr": "" }
           }
         },
         "R4": {
           "interfaces": {
             "GigabitEthernet1/0": { "ipv4": "", "ngbr": "R3" },
-            "Loopback0": { "ipv4": "", "ngbr": "" }
-          }
-        }
-      }
-    },
-    "103": {
-      "igp": "RIP",
-      "add_range": "",
-      "loopback": "",
-      "routers": {
-        "R5": {
-          "interfaces": {
-            "GigabitEthernet1/0": { "ipv4": "", "ngbr": "R6" },
-            "GigabitEthernet2/0": { "ipv4": "", "ngbr": "R3", "relationship": "peer"},
-            "Loopback0": { "ipv4": "", "ngbr": "" }
-          }
-        },
-        "R6": {
-          "interfaces": {
-            "GigabitEthernet1/0": { "ipv4": "", "ngbr": "R5" },
             "Loopback0": { "ipv4": "", "ngbr": "" }
           }
         }
