@@ -73,9 +73,7 @@ class Network:
             Path(as_dir).mkdir(parents=True, exist_ok=True)
 
             # igp process
-            if as_obj.igp == "RIP":
-                igp_cmds = rip_commands(self.inventory, asn)
-            elif as_obj.igp == "OSPF":
+            if as_obj.igp == "OSPF":
                 igp_cmds = ospf_commands(self.inventory, asn)
             else:
                 raise ValueError(f"Unsupported IGP: {as_obj.igp}")
@@ -158,7 +156,7 @@ class Network:
                 f" ip address {ip_addr} {netmask}",
             ]
 
-            # enable OSPF on internal interfaces (RIP uses network statements in process)
+            #enable OSPF on internal interfaces
             if igp_type == "OSPF" and if_name in internal.get(router_name, set()):
                 lines.append(f" ip ospf {asn} area 0")
 
@@ -168,7 +166,7 @@ class Network:
             lines += policy_global_lines
             lines.append("!")
 
-        # bgp block
+        #bgp block
         if bgp_block_lines:
             lines += bgp_block_lines
             lines.append("!")
