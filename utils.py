@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import json
 import re
 
-SUPPORTED_IGP = {"OSPF", "RIP"}
+SUPPORTED_IGP = {"OSPF"}
 
 @dataclass
 class Interface:
@@ -152,27 +152,6 @@ def internal_interfaces(inv: Inventory, asn: int):
                 internal[router_name].add(interface_name)
 
     return internal
-
-
-def rip_commands(inv: Inventory, asn: int):
-    """
-    RIP configuration — IOS classic IPv4 RIPv2
-    """
-    as_obj = inv.ases[asn]
-    out: dict[str, list[str]] = {}
-    internal = internal_interfaces(inv, asn)
-
-    for router_name, router_body in as_obj.routers.items():
-        lines = ["router rip", " version 2", " no auto-summary"]
-        for if_name in internal.get(router_name, set()):
-            if_obj = router_body.interfaces.get(if_name)
-            if if_obj and if_obj.ipv4 and "/" in if_obj.ipv4:
-                import ipaddress
-                net = ipaddress.ip_interface(if_obj.ipv4).network
-                lines.append(f" network {net.network_address}")
-        out[router_name] = lines
-
-    return out
 
 
 def ospf_commands(inv: Inventory, asn: int):
