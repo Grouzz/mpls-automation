@@ -1,0 +1,67 @@
+{
+  "AS": {
+    "101": {
+      "igp": "OSPF",
+      "add_range": "10.101.0.0/16",
+      "loopback": "10.101.255.0/24",
+      "routers": {
+        "R1": {
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "10.101.0.1/30",
+              "ngbr": "R2"
+            },
+            "Loopback0": {
+              "ipv4": "10.101.255.1/32",
+              "ngbr": ""
+            }
+          }
+        },
+        "R2": {
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "10.101.0.2/30",
+              "ngbr": "R1"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "10.101.0.5/30",
+              "ngbr": "R3"
+            },
+            "Loopback0": {
+              "ipv4": "10.101.255.2/32",
+              "ngbr": ""
+            }
+          }
+        },
+        "R3": {
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "10.101.0.6/30",
+              "ngbr": "R2"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "10.101.0.9/30",
+              "ngbr": "R4"
+            },
+            "Loopback0": {
+              "ipv4": "10.101.255.3/32",
+              "ngbr": ""
+            }
+          }
+        },
+        "R4": {
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "10.101.0.10/30",
+              "ngbr": "R3"
+            },
+            "Loopback0": {
+              "ipv4": "10.101.255.4/32",
+              "ngbr": ""
+            }
+          }
+        }
+      }
+    }
+  }
+}
