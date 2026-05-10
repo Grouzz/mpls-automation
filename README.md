@@ -1,6 +1,6 @@
 # MPLS configuration automation (IPv4 addressing, OSPF, MPLS)
 
-This project generates **router startup configurations** from an **intent JSON** file. It automatically assigns **IPv4 addresses**, configures **IGP** (OSPF), builds an **iBGP full-mesh** inside each AS using **loopbacks**, configures **eBGP** on inter-AS links, and optionally applies **routing policies** using **communities + local-preference + route-maps**.
+This project automates the configuration of a complete BGP/MPLS VPN network including: basic network setup with OSPF routing, MPLS with LDP, cutomer VRFs, PE-CE BGP peering
 
 ---
 
@@ -13,22 +13,50 @@ After running the script, you get:
 
 ---
 
-## Quick start
-
-### Requirements
-- Python **3.9+** (uses `list[str]` typing and standard libraries such as `ipaddress`, `dataclasses`)
-- No external Python dependencies
-
-### Run
-From the project directory:
+### Basic Usage
 
 ```bash
-#basic run (default output: ./output)
-python3 main.py intent.json
+python main.py intent.json
+```
 
-#choosing an output directory
-python3 main.py intent.json -o ./output
+This will:
+1. Load and validate the intent file
+2. Automatically assign IP addresses
+3. Generate `intent_filled.json`
+4. Create router configurations in `./output/`
 
-#disabling BGP policies (generate only iBGP/eBGP without policies)
-python3 main.py intent.json --no-policies
+### Custom Output Directory
 
+```bash
+python3 main.py intent.json -o /path/to/output
+```
+
+### Adding a New Customer
+
+1. Add new customer AS in `intent.json`:
+```json
+"65003": {
+  "igp": "OSPF",
+  "customer": true,
+  "routers": {
+    "R9": {
+      "role": "CE",
+      "interfaces": { ... }
+    }
+  }
+}
+```
+
+2. Add VRF configuration in provider AS:
+```json
+"CUSTOMER_104": {
+  "rd": "100:104",
+  "route_targets": {
+    "import": ["100:104"],
+    "export": ["100:104"]
+  },
+  "pe_routers": { ... }
+}
+```
+
+3. Re-run: `python main.py intent.json`
