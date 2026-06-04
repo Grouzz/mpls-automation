@@ -1,7 +1,3 @@
-"""
-Creates the MPLS/VPN topology directly in GNS3 using your Cisco c7200 IOS router template.
-"""
-
 from __future__ import annotations
 
 import argparse
@@ -18,42 +14,24 @@ from typing import Any
 # ---------------------------------------------------------------------------
 
 NODES: dict[str, tuple[int, int]] = {
-    # Customer sites on R1
-    "R7": (-520, -180),   # headquarters CE
-    "R5": (-520, 80),     # branch1 CE
-
-    # Provider backbone
-    "R1": (-300, -60),    # PE
-    "R2": (-80, -60),     # P
-    "R3": (140, -60),     # P
-    "R4": (360, -60),     # PE
-    "R12": (140, 170),    # PE
-
-    # Customer sites on R4
-    "R8": (580, -170),    # branch2 CE
-    "R9": (580, 50),      # FINANCE_AUDIT CE
-
-    # Customer sites on R12
-    "R10": (-80, 330),    # SHARED_SERVICES CE
-    "R11": (360, 330),    # ISOLATED_RESEARCH CE
+    "R7": (-520, -80),
+    "R1": (-300, -80),
+    "R2": (-80, -80),
+    "R3": (140, -80),
+    "R4": (360, -80),
+    "R8": (580, -80),
+    "R5": (-300, 140),
 }
 
 # GNS3 link endpoints.
 # These interface names must exist in the c7200 template.
 LINKS: list[tuple[str, str, str, str]] = [
-    # CE to PE links
     ("R1", "GigabitEthernet1/0", "R7", "GigabitEthernet1/0"),
     ("R1", "GigabitEthernet2/0", "R5", "GigabitEthernet1/0"),
-    ("R4", "GigabitEthernet2/0", "R8", "GigabitEthernet1/0"),
-    ("R4", "GigabitEthernet3/0", "R9", "GigabitEthernet1/0"),
-    ("R12", "GigabitEthernet2/0", "R10", "GigabitEthernet1/0"),
-    ("R12", "GigabitEthernet3/0", "R11", "GigabitEthernet1/0"),
-
-    # Provider core links
     ("R1", "GigabitEthernet3/0", "R2", "GigabitEthernet1/0"),
     ("R2", "GigabitEthernet2/0", "R3", "GigabitEthernet1/0"),
     ("R3", "GigabitEthernet2/0", "R4", "GigabitEthernet1/0"),
-    ("R3", "GigabitEthernet3/0", "R12", "GigabitEthernet1/0"),
+    ("R4", "GigabitEthernet2/0", "R8", "GigabitEthernet1/0"),
 ]
 
 
@@ -376,13 +354,13 @@ def print_port_inventory(nodes: dict[str, dict[str, Any]]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Create the complex c7200 MPLS/VPN topology directly in GNS3."
+        description="Create the c7200 MPLS/VPN topology directly in GNS3."
     )
     parser.add_argument("--host", default="127.0.0.1", help="GNS3 server host. Default: 127.0.0.1")
     parser.add_argument("--port", type=int, default=3080, help="GNS3 server port. Default: 3080")
     parser.add_argument("--project", default="mpls_testing", help="GNS3 project name. Default: mpls_testing")
     parser.add_argument("--template", default="c7200", help="GNS3 router template name. Default: c7200")
-    parser.add_argument("--rebuild", action="store_true", help="Delete existing lab routers first.")
+    parser.add_argument("--rebuild", action="store_true", help="Delete existing R1/R2/R3/R4/R5/R7/R8 nodes first.")
     parser.add_argument("--list-templates", action="store_true", help="Only list available GNS3 templates.")
     parser.add_argument("--no-open", action="store_true", help="Do not call the GNS3 project open endpoint.")
     args = parser.parse_args()
@@ -418,8 +396,8 @@ def main() -> None:
 
         print("\n✓ GNS3 topology created successfully.")
         print("\nNext commands:")
-        print(f"  py main.py intent.json -o output_complex --phase4b --phase4b-policy policy.json")
-        print(f"  py main.py intent.json -o output_complex --phase4b --phase4b-policy policy.json --drag-drop-bot --gns3-project \"{args.project}\" --gns3-start")
+        print(f"  py main.py intent.json -o output_gns3")
+        print(f"  py main.py intent.json -o output_gns3 --drag-drop-bot --gns3-project \"{args.project}\" --gns3-start")
         print("\nIf config push fails because of interfaces, check that the printed interfaces include:")
         print("  GigabitEthernet1/0, GigabitEthernet2/0, GigabitEthernet3/0")
 
