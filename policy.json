@@ -1,0 +1,48 @@
+{
+  "sharing_policies": [
+    {
+      "pe_asn": 100,
+      "vrfs": [
+        "headquarters",
+        "branch1",
+        "branch2"
+      ],
+      "shared_rt": "100:500"
+    },
+    {
+      "pe_asn": 100,
+      "from_vrf": "SHARED_SERVICES",
+      "to_vrf": "headquarters",
+      "shared_rt": "100:600",
+      "bidirectional": false
+    },
+    {
+      "pe_asn": 100,
+      "from_vrf": "SHARED_SERVICES",
+      "to_vrf": "branch1",
+      "shared_rt": "100:600",
+      "bidirectional": false
+    },
+    {
+      "pe_asn": 100,
+      "from_vrf": "SHARED_SERVICES",
+      "to_vrf": "branch2",
+      "shared_rt": "100:600",
+      "bidirectional": false
+    },
+    {
+      "pe_asn": 100,
+      "from_vrf": "SHARED_SERVICES",
+      "to_vrf": "FINANCE_AUDIT",
+      "shared_rt": "100:600",
+      "bidirectional": false
+    },
+    {
+      "pe_asn": 100,
+      "from_vrf": "FINANCE_AUDIT",
+      "to_vrf": "headquarters",
+      "shared_rt": "100:700",
+      "bidirectional": true
+    }
+  ]
+}

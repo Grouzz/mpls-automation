@@ -1,0 +1,436 @@
+{
+  "AS": {
+    "100": {
+      "igp": "OSPF",
+      "add_range": "10.0.0.0/16",
+      "loopback": "10.0.255.0/24",
+      "mpls": {
+        "enabled": true,
+        "ldp": true
+      },
+      "routers": {
+        "R1": {
+          "role": "PE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R7"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "",
+              "ngbr": "R5"
+            },
+            "GigabitEthernet3/0": {
+              "ipv4": "",
+              "ngbr": "R2"
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        },
+        "R2": {
+          "role": "P",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R1"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "",
+              "ngbr": "R3"
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        },
+        "R3": {
+          "role": "P",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R2"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "",
+              "ngbr": "R4"
+            },
+            "GigabitEthernet3/0": {
+              "ipv4": "",
+              "ngbr": "R12"
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        },
+        "R4": {
+          "role": "PE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R3"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "",
+              "ngbr": "R8"
+            },
+            "GigabitEthernet3/0": {
+              "ipv4": "",
+              "ngbr": "R9"
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        },
+        "R12": {
+          "role": "PE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R3"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "",
+              "ngbr": "R10"
+            },
+            "GigabitEthernet3/0": {
+              "ipv4": "",
+              "ngbr": "R11"
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        }
+      },
+      "vrfs": {
+        "headquarters": {
+          "rd": "100:110",
+          "route_targets": {
+            "import": [
+              "100:110"
+            ],
+            "export": [
+              "100:110"
+            ]
+          },
+          "pe_routers": {
+            "R1": {
+              "interfaces": [
+                "GigabitEthernet1/0"
+              ],
+              "ce_peers": {
+                "R7": {
+                  "interface": "GigabitEthernet1/0",
+                  "ce_asn": 65010,
+                  "networks": [
+                    "192.168.10.0/24"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "branch1": {
+          "rd": "100:111",
+          "route_targets": {
+            "import": [
+              "100:111"
+            ],
+            "export": [
+              "100:111"
+            ]
+          },
+          "pe_routers": {
+            "R1": {
+              "interfaces": [
+                "GigabitEthernet2/0"
+              ],
+              "ce_peers": {
+                "R5": {
+                  "interface": "GigabitEthernet2/0",
+                  "ce_asn": 65011,
+                  "networks": [
+                    "192.168.11.0/24"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "branch2": {
+          "rd": "100:112",
+          "route_targets": {
+            "import": [
+              "100:112"
+            ],
+            "export": [
+              "100:112"
+            ]
+          },
+          "pe_routers": {
+            "R4": {
+              "interfaces": [
+                "GigabitEthernet2/0"
+              ],
+              "ce_peers": {
+                "R8": {
+                  "interface": "GigabitEthernet2/0",
+                  "ce_asn": 65012,
+                  "networks": [
+                    "192.168.12.0/24"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "FINANCE_AUDIT": {
+          "rd": "100:120",
+          "route_targets": {
+            "import": [
+              "100:120"
+            ],
+            "export": [
+              "100:120"
+            ]
+          },
+          "pe_routers": {
+            "R4": {
+              "interfaces": [
+                "GigabitEthernet3/0"
+              ],
+              "ce_peers": {
+                "R9": {
+                  "interface": "GigabitEthernet3/0",
+                  "ce_asn": 65020,
+                  "networks": [
+                    "192.168.20.0/24"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "SHARED_SERVICES": {
+          "rd": "100:130",
+          "route_targets": {
+            "import": [
+              "100:130"
+            ],
+            "export": [
+              "100:130"
+            ]
+          },
+          "pe_routers": {
+            "R12": {
+              "interfaces": [
+                "GigabitEthernet2/0"
+              ],
+              "ce_peers": {
+                "R10": {
+                  "interface": "GigabitEthernet2/0",
+                  "ce_asn": 65030,
+                  "networks": [
+                    "192.168.30.0/24"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "ISOLATED_RESEARCH": {
+          "rd": "100:140",
+          "route_targets": {
+            "import": [
+              "100:140"
+            ],
+            "export": [
+              "100:140"
+            ]
+          },
+          "pe_routers": {
+            "R12": {
+              "interfaces": [
+                "GigabitEthernet3/0"
+              ],
+              "ce_peers": {
+                "R11": {
+                  "interface": "GigabitEthernet3/0",
+                  "ce_asn": 65040,
+                  "networks": [
+                    "192.168.40.0/24"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "65010": {
+      "igp": "OSPF",
+      "add_range": "192.168.110.0/24",
+      "loopback": "192.168.255.0/28",
+      "customer": true,
+      "routers": {
+        "R7": {
+          "role": "CE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R1",
+              "relationship": "provider"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "192.168.10.1/24",
+              "ngbr": ""
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        }
+      }
+    },
+    "65011": {
+      "igp": "OSPF",
+      "add_range": "192.168.111.0/24",
+      "loopback": "192.168.255.16/28",
+      "customer": true,
+      "routers": {
+        "R5": {
+          "role": "CE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R1",
+              "relationship": "provider"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "192.168.11.1/24",
+              "ngbr": ""
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        }
+      }
+    },
+    "65012": {
+      "igp": "OSPF",
+      "add_range": "192.168.112.0/24",
+      "loopback": "192.168.255.32/28",
+      "customer": true,
+      "routers": {
+        "R8": {
+          "role": "CE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R4",
+              "relationship": "provider"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "192.168.12.1/24",
+              "ngbr": ""
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        }
+      }
+    },
+    "65020": {
+      "igp": "OSPF",
+      "add_range": "192.168.120.0/24",
+      "loopback": "192.168.255.48/28",
+      "customer": true,
+      "routers": {
+        "R9": {
+          "role": "CE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R4",
+              "relationship": "provider"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "192.168.20.1/24",
+              "ngbr": ""
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        }
+      }
+    },
+    "65030": {
+      "igp": "OSPF",
+      "add_range": "192.168.130.0/24",
+      "loopback": "192.168.255.64/28",
+      "customer": true,
+      "routers": {
+        "R10": {
+          "role": "CE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R12",
+              "relationship": "provider"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "192.168.30.1/24",
+              "ngbr": ""
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        }
+      }
+    },
+    "65040": {
+      "igp": "OSPF",
+      "add_range": "192.168.140.0/24",
+      "loopback": "192.168.255.80/28",
+      "customer": true,
+      "routers": {
+        "R11": {
+          "role": "CE",
+          "interfaces": {
+            "GigabitEthernet1/0": {
+              "ipv4": "",
+              "ngbr": "R12",
+              "relationship": "provider"
+            },
+            "GigabitEthernet2/0": {
+              "ipv4": "192.168.40.1/24",
+              "ngbr": ""
+            },
+            "Loopback0": {
+              "ipv4": "",
+              "ngbr": ""
+            }
+          }
+        }
+      }
+    }
+  }
+}
